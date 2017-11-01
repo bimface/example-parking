@@ -12,15 +12,15 @@
 ## 逻辑#1 - 构建停车场停车位列表
 
 1. 通过调用BIMFACE服务端"获取文件转换的构件列表"API，根据构件类型ID、族和族类型获取"停车位"构件列表：
-* "获取文件转换的构件列表"API详见[http://doc.bimface.com/book/restful/articles/api/translate/get-ele-ids.html](http://doc.bimface.com/book/restful/articles/api/translate/get-ele-ids.html?p=doc)
-* JAVA-SDK调用示例如下：
+   * "获取文件转换的构件列表"API详见[http://doc.bimface.com/book/restful/articles/api/translate/get-ele-ids.html](http://doc.bimface.com/book/restful/articles/api/translate/get-ele-ids.html?p=doc)
+   * JAVA-SDK调用示例如下：
 ```java
 BimfaceClient bimfaceClient = new BimfaceClient(appKey, appSecret);
 List<String> elements = bimfaceClient.getElements(fileId, categoryId, family, familyType);
 ```
 2. 通过调用BIMFACE服务端"获取文件转换的构件属性"API，根据fileId、elementId获取构件属性：
-* "获取文件转换的构件属性"API详见[http://doc.bimface.com/book/restful/articles/api/translate/get-ele-prop.html](http://doc.bimface.com/book/restful/articles/api/translate/get-ele-prop.html?p=doc)
-* JAVA-SDK调用示例如下：
+   * "获取文件转换的构件属性"API详见[http://doc.bimface.com/book/restful/articles/api/translate/get-ele-prop.html](http://doc.bimface.com/book/restful/articles/api/translate/get-ele-prop.html?p=doc)
+   * JAVA-SDK调用示例如下：
 ```java
 PropertyBean propertyBean = bimfaceClient.getProperty(fileId, elementId);
 ```
@@ -43,7 +43,11 @@ for (String elementId : elements) {
 	......
 }
 ```
-通过以上两个API就可以构建出停车位业务数据，有了相关业务数据可以提供前端随意使用。
+通过以上两个API就可以构建出停车位业务数据（停车位楼层、编号、是否停车等），有了相关业务数据可以提供前端随意使用。
+
+## 逻辑#2 - 构建停车场停人员列表
+
+根据业务真实场景，通过第三方设备实时采集停车场人员信息（人员编号、姓名、实时坐标、对应的停车位等）并提供应用使用。（此示例程序中，模拟了一些人员的实时数据，供前端使用达到动态活动的效果）
 
 ### 查看示例
 
