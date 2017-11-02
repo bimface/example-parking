@@ -55,6 +55,100 @@ for (String elementId : elements) {
 ```javascript
 <script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js" charset="utf-8"></script>
 ```
+2. 定义DOM元素，用于在该DOM元素中显示模型或图纸
+```javascript
+<div id="view3d"></div>
+```
+3. 初始化JavaScript显示组件
+```javascript
+var options = new BimfaceSDKLoaderConfig();
+options.viewToken = viewToken;
+BimfaceSDKLoader.load(options, successCallback, failureCallback);
+
+function successCallback() {
+  // 获取DOM元素
+  var dom4Show = document.getElementById('view3d');
+
+  // 配置参数
+  var config = new Glodon.Bimface.Viewer.Viewer3DConfig();
+  config.domElement = dom4Show;
+
+  // 创建viewer3D对象
+  viewer3D = new Glodon.Bimface.Viewer.Viewer3D(config);
+
+  // 添加模型
+  viewer3D.addView(viewToken);
+
+  // 监听添加view完成的事件
+  viewer3D.addEventListener(Glodon.Bimface.Viewer.Viewer3DEvent.ViewAdded, function() {
+    
+    // 渲染3D模型
+    viewer3D.render();
+
+    //调用viewer3D对象的Method，可以继续扩展功能
+
+  });
+}
+
+function failureCallback(error) {
+  console.log(error);
+};
+```
+4. 人的标识处理
+原理就是运用了Bmiface的批注方式，先初始化绘制器，然后在绘制器上打标签。
+  * 初始化绘制器
+  ```javascript
+  var drawaleContainerConfig = new Glodon.Bimface.Plugins.Drawable.DrawableContainerConfig();
+  drawaleContainerConfig.viewer = me.viewer3D;
+  me.drawableContainer = new Glodon.Bimface.Plugins.Drawable.DrawableContainer(drawaleContainerConfig);
+  ```
+  * 打标签
+  ```javascript
+  me.tagArr = [];
+
+  for(var i=0; i<res.data.length; i++){
+    var imageConfig = new Glodon.Bimface.Plugins.Drawable.ImageConfig();
+      //设置图片路径
+      imageConfig.src = me.img_other;
+      //设置图片坐标
+      imageConfig.worldPosition = res.data[i];
+      //创建标签
+      var tag = new Glodon.Bimface.Plugins.Drawable.Image(imageConfig);
+      //判断该标签是否当前用户
+      if(tag.worldPosition.name == me.user){
+        tag.setSrc(me.img_cur);
+        me.user = tag.worldPosition.name;
+        me.parkNum = tag.worldPosition.parkNumber;
+      };
+      tagArr.push(tag);
+      //对标签的点击做相应处理
+      tag.onClick(function(){
+        var isClick = (this.getSrc()==me.img_other);
+        for(var i=0; i<me.tagArr.length;i++){
+          me.tagArr[i].setSrc(me.img_other);
+        }
+        if(isClick){
+          this.setSrc(me.img_cur);
+          me.user = this.worldPosition.name;
+          me.parkNum = this.worldPosition.parkNumber;
+          me.parkPoint(this.worldPosition.parkId);
+        } else {
+          this.setSrc(me.img_cur);
+        }
+      })
+  }
+  me.drawableContainer.addItems(me.tagArr);
+  ```
+5. 调用API方法
+  * overrideComponentsColorById(objectIds, color) 改变构件颜色（用于停车位设置高亮）
+  * restoreComponentsColorById(objectIds) 恢复构件颜色（重置停车位）
+  * isolateComponentsByObjectData(conditions, state) 根据筛选条件隔离构件 （用于在初始化模型时候将停车场按楼层单独隔离显示）
+  * clearIsolation() 清楚隔离 （楼层切换时候先恢复到初始状态）
+
+
+ps. 改Demo基于vue+webpack进行开发打包，如用jquery/React实现同上。
+
+参考API：[http://doc.bimface.com/book/js/articles/basic/index.html](http://doc.bimface.com/book/js/articles/basic/index.html)
 
 # 查看示例
 
