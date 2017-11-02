@@ -49,6 +49,13 @@ for (String elementId : elements) {
 
 根据真实场景，通过第三方设备实时采集停车场人员信息（人员编号、姓名、实时坐标、对应的停车位等）并提供应用使用。（此示例程序中，通过模拟构造一些人员的实时数据，供前端使用达到人员动态走动和找车位的效果）
 
+# 前端实现
+## 基本流程
+1. 引用BIMFACE的JavaScript显示组件库
+```javascript
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js" charset="utf-8"></script>
+```
+
 # 查看示例
 
 [http://bimface.com/example/park](http://bimface.com/example/park)
