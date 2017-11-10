@@ -146,7 +146,7 @@ function failureCallback(error) {
   * clearIsolation() 清楚隔离 （楼层切换时候先恢复到初始状态）
 
 
-ps. 改Demo基于vue+webpack进行开发打包，如用jquery/React实现同上。
+ps. 该Demo基于vue+webpack进行开发打包，如用jquery/React实现同上。
 
 参考API：[http://doc.bimface.com/book/js/articles/basic/index.html](http://doc.bimface.com/book/js/articles/basic/index.html)
 
