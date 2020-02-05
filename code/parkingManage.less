@@ -1,0 +1,110 @@
+.temp-container {
+  position: relative;
+  .side {
+    width: 200px;
+    position: absolute;
+    top:0px;
+    left:0px;
+    bottom:0px;
+    background-color: #fff;
+    .title {
+      text-align: center;
+      line-height:30px;
+      background-color: #666;
+      color: #fff;
+    }
+    .tab {
+      height:29px;
+      background-color: #ddd;
+      padding: 0 5px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #ccc;
+      a {
+        float: left;
+        margin-right: 1px;
+        display: block;
+        line-height: 30px;
+        width:94px;
+        text-align: center;
+        color: #333;
+        &.cur, &:hover {
+          text-decoration: none;
+          background-color: #fff;
+          position: relative;
+          line-height: 30px;
+        }
+      }
+    }
+    .list {
+      width: 200px;
+      position: absolute;
+      top:60px;
+      left:0px;
+      bottom:70px;
+      overflow-y: auto;
+      padding:10px;
+      box-sizing: border-box;
+
+      dl {
+        display: none;
+        &.show {
+          display: block;
+        }
+      }
+      dt, dd {
+        padding-left:15px;
+        line-height: 1.8;
+        span:hover {
+          color:#fb8686;
+          cursor: pointer;
+        }
+      }
+    }
+    .park-state {
+      position: absolute;
+      width: 100%;
+      bottom:0px;
+      text-align: center;
+      background-color: #666;
+      color: #fff;
+      line-height: 1.8;
+      padding:10px 0;
+      span {
+        color: #f4645f;
+      }
+    }
+  }
+
+  .main {
+    position: absolute;
+    top:0px;
+    left:200px;
+    bottom:0px;
+    right:0;
+    box-shadow: -2px 2px 4px RGBA(150,152,154,.2);
+    box-sizing: border-box;
+    overflow-y: auto;
+    .person-state {
+      position: absolute;
+      width: 100%;
+      bottom:0px;
+      line-height: 40px;
+      background-color: #333;
+      text-align: center;
+      color:#fff;
+    }
+    .person-state span {
+      color: #f4645f;
+    }
+  }
+}
+
+
+#view3d {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:40px;
+  background-color: #fff;
+}
